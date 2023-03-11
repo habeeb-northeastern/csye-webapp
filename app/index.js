@@ -9,6 +9,8 @@ app.use(express.json());
 
 app.use(express.urlencoded( { extended: true }))
 
+const port = process.env.PORT || 8080;
+
 app.get("/healthz", (req, res) => {
   const data = {
     uptime: process.uptime(),
@@ -23,6 +25,8 @@ app.use("/v1/user", userRouter);
 app.use("/v1/product", productRouter);
 
 
-app.listen(process.env.APP_PORT, () => {
-  console.log("Server up and running at : ", process.env.APP_PORT);
+const server = app.listen(port, () => {
+  console.log("Server up and running at : ", port);
 });
+
+module.exports = server;
