@@ -1,0 +1,13 @@
+[Unit]
+Description=Node.js App
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/ec2-user
+ExecStart=/home/ec2-user/.nvm/versions/node/v16.19.1/bin/node /home/ec2-user/app/index.js
+Restart=always
+
+
+[Install]
+WantedBy=multi-user.target
