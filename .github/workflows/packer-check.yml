@@ -1,16 +1,14 @@
 name: AWS AMI using Packer Config
 
 on:
-  pull_request:
-    types:
-        - closed
+  push:
     branches:
         - 'main'
 
 jobs:
   packer:
     runs-on: ubuntu-latest
-    name: Packer build
+    name: Packer check
 
     steps:
       - name: Checkout Repository
@@ -31,12 +29,10 @@ jobs:
         with:
           command: init
 
-      # build artifact
-      - name: Build Artifact
+      # validate templates
+      - name: Validate Template
         uses: hashicorp/packer-github-actions@master
         with:
-          command: build
-          arguments: "-color=false -on-error=abort"
+          command: validate
+          arguments: -syntax-only
           target: ami.pkr.hcl
-        env:
-          PACKER_LOG: 1
