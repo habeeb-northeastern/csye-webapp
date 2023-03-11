@@ -1,10 +1,8 @@
-const bcrypt = require("bcrypt");
 const auth = require("../helpers/basic-auth")
 
 const db = require("../models");
 const User = db.user;
 const Product = db.products;
-const saltRounds = 10;
 
 module.exports = {
 
