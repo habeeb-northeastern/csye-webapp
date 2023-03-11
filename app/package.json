@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "test": "mocha *.test.js",
-    "build": "echo 'Building my app'"
+    "build": "echo 'Building my app'",
+    "syntax-check": "node -c index.js"
   },
   "keywords": [],
   "author": "",
