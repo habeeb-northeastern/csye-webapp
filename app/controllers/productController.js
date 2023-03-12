@@ -174,11 +174,6 @@ module.exports = {
                      })
                  }
               })
-    
-              Product.findOne({ where: { prod_id: prod_id }})
-              .then((prod) => {
- 
-              })
       })
 
         }})
