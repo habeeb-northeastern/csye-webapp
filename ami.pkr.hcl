@@ -113,9 +113,6 @@ build {
   provisioner "shell" {
     script = "shell.sh"
   }
-  provisioner "shell" {
-    script = "shell1.sh"
-  }
     provisioner "shell" {
     script = "shell2.sh"
   }
