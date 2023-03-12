@@ -3,11 +3,10 @@ const dbConfig = require('../config/dbConfig.js');
 const { Sequelize } = require('sequelize');
 
 
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-  host: dbConfig.HOST,
-  dialect: dbConfig.dialect,
+const sequelize = new Sequelize(process.env.MYSQL_DB, process.env.USER, process.env.PASS, {
+  host: process.env.HOST,
+  dialect: process.env.dialect,
   operatorsAliases: 0,
-  dialectOptions: dbConfig.dialectOptions,
   pool: {
     max: dbConfig.pool.max,
     min: dbConfig.pool.min,
@@ -23,11 +22,13 @@ db.sequelize = sequelize;
 
 db.user = require("./userModel")(sequelize, Sequelize);
 db.products = require("./productModel")(sequelize, Sequelize);
+//db.image = require("./imageModel")(sequelize, Sequelize);
 
 db.sequelize.sync({ force: false})
 
 const User = db.user;
 const Product = db.products;
+//const Image = db.image;
 
 User.hasMany(Product, {
   foreignKey: 'id'
@@ -35,5 +36,13 @@ User.hasMany(Product, {
 Product.belongsTo(User, {
   foreignKey: 'id'
 });
+
+// Product.hasMany(Image, {
+//   foreignKey: 'prod_id',
+//   onDelete:'CASCADE'
+// });
+// Image.belongsTo(Product, {
+//   foreignKey: 'prod_id'
+// });
 
 module.exports = db;
