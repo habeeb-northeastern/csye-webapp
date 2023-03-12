@@ -5,7 +5,7 @@ const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize(process.env.MYSQL_DB, process.env.USER, process.env.PASS, {
   host: process.env.HOST,
-  dialect: process.env.dialect,
+  dialect:'mysql' ,
   operatorsAliases: 0,
   pool: {
     max: dbConfig.pool.max,
