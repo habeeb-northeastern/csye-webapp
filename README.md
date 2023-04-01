@@ -23,4 +23,4 @@ A database table will need to be created at MySql and its credentials to be adde
 ```   
 $npm start   
 ```
-7. You can use Postman or other relevant applications to run and test the API Endpoints
+7. You can use Postman or other relevant applications to test the API Endpoints
