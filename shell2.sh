@@ -1,14 +1,4 @@
 #!/bin/bash
-sudo yum update -y 
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-nvm install 16
-node -v
-cd app
-npm install
-npm test
-sudo systemctl daemon-reload
-sudo systemctl enable systemd.service
-sudo systemctl start systemd.service
-
+curl -O https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+sudo rpm -U ./amazon-cloudwatch-agent.rpm
+sudo systemctl enable amazon-cloudwatch-agent.service

@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/home/ec2-user
-ExecStart=/home/ec2-user/.nvm/versions/node/v16.19.1/bin/node /home/ec2-user/app/index.js
+WorkingDirectory=/home/ec2-user/project
+ExecStart=/usr/bin/node /home/ec2-user/project/index.js
 Restart=always
 
 

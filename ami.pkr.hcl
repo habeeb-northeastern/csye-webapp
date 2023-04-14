@@ -1,33 +1,3 @@
-packer {
-  required_plugins {
-    amazon = {
-      version = ">= 0.0.2"
-      source  = "github.com/hashicorp/amazon"
-    }
-  }
-}
-
-
-variable "aws_access_key" {
-  type    = string
-  default = "AKIASEE4BOWZQWZFG24R"
-
-}
-
-variable "aws_secret_key" {
-  type    = string
-  default = "SW/dtHWwa+STX99V1o9jnSPbID0ahYpwZSpV8bLy"
-}
-
-variable "aws_region" {
-  type    = string
-  default = "us-east-1"
-}
-
-// variable "subnet_id" {
-//   type    = string
-//   default = "subnet-08a0253d2fab8e289"
-// }
 variable "ssh_username" {
   type    = string
   default = "ec2-user"
@@ -37,22 +7,26 @@ variable "aws_account_id" {
   default = "385627822687"
 }
 
-// variable "source_ami" {
-//   type    = string
-//   default = "ami-0dfcb1ef8550277af"
-// }
+variable "aws_access_key" {
+  type = string
+  default = "AKIASEE4BOWZQWZFG24R"
+}
+variable "aws_secret_key" {
+  type = string
+  default = "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"
+}
+variable "aws_region" {
+  type= string
+  default = "us-east-1"
+}
 
 
-# https://www.packer.io/plugins/builders/amazon/ebs
 source "amazon-ebs" "my_ami" {
-  access_key    = var.aws_access_key
-  secret_key    = var.aws_secret_key
-  region        = "${var.aws_region}"
-  ami_name      = "csye6225_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
-  ami_description = "AMI for CSYE 6225"
-  ami_regions = [
-    "us-east-1",
-  ]
+  ami_name      = "assignment4_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
+  region= "${var.aws_region}"
+  
   aws_polling {
     delay_seconds = 120
     max_attempts  = 50
@@ -60,15 +34,15 @@ source "amazon-ebs" "my_ami" {
   
 
   instance_type = "t2.micro"
-  // source_ami = "${var.source_ami}"
   ssh_username  = "${var.ssh_username}"
-  // subnet_id     = "${var.subnet_id}"
   vpc_filter {
     filters = {
       "is-default" = "true"
     }
   }
   
+
+
   launch_block_device_mappings {
     delete_on_termination = true
     device_name           = "/dev/xvda"
@@ -88,10 +62,10 @@ source "amazon-ebs" "my_ami" {
     owners      = ["amazon"]
     most_recent = true
   }
-  ami_users= ["${var.aws_account_id}"]
-  tags= {
+    ami_users= ["${var.aws_account_id}"]
+   tags= {
         "Name": "Assignment-ami"
-  }
+      }
 
 
 
@@ -103,18 +77,26 @@ build {
     "source.amazon-ebs.my_ami"
   ]
   provisioner "file" {
-    source      = "{{ `.` }}/app"
-    destination = "/home/ec2-user/app"
+    source      = "{{ `.` }}/project"
+    destination = "/home/ec2-user/project"
   }
   provisioner "file" {
   source      = "{{ `.` }}/systemd.service"
-  destination = "/home/ec2-user/app/systemd.service"
+  destination = "/home/ec2-user/project/systemd.service"
   }
   provisioner "shell" {
     script = "shell.sh"
   }
+  provisioner "file" {
+    source      = "{{ `.` }}/cloudWatchAgent.json"
+    destination = "/home/ec2-user/project/cloudWatchAgent.json"
+  }
     provisioner "shell" {
     script = "shell2.sh"
   }
+   provisioner "shell" {
+    script = "shell3.sh"
+  }
+
+
 }
- 
