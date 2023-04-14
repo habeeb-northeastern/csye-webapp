@@ -1,26 +1,75 @@
-# webapp
-A cloud based web app being built as part of CSYE6225 Network Structures and Cloud Computing course offered by Northeastern University.
+# CSYE 6225 Back-end application in NodeJS using express.js 
+## Overview:
+💻 This is a project for the course CSYE 6225. It is a NodeJs app with API endpoints as specified below in this document.
+- **Framework**: Express.js
+- **Database**: MySQL
+- **ORM**: Sequelize
+- **Testing**: Mocha
+> **Note**: This project uses GitHub Actions workflow and test cases are run on every PR
 
-## Prerequisites:
+## Prerequisites for running the project
+- Any OS with JavaScript compatibility
+- MySQL server version 5.+
+- A REST API client like [Postman](https://www.postman.com/)
+- [NodeJS](https://nodejs.org/en) installed 
 
-This project uses node.js, npm and mysql locally to build and deploy this project
+## Instructions to build and run:
+- Fork and clone this repository
+- Use a terminal to run the commands
+- Go to `path/to/webapp`
+- Run `npm install`
+- After installation completes, run the server using `node server.js` 
+OR `npm run start-dev` for development environment
+- Run `npm test` to run all the test cases
+- Open a REST client for testing the following [API endpoints](https://app.swaggerhub.com/apis-docs/csye6225/fall2020-csye6225/assignment-02):
+    1. Creating a new user:
+    `POST` call to `localhost:8080/v1/user/`
+        - This call does not require authentication
+        - Required fields (example request body):
+            ```json
+            {
+                "first_name": "Jane",
+                "last_name": "Doe",
+                "password": "Cloud@123X",
+                "username": "jane.doe@example.com"
+            } 
+            ```
 
-## Build:
+    2. Making a `GET` call to `localhost:8080/v1/user/self` for getting your own user data:
+        - This call uses Basic Authentication
+        - Enter your username and password as credentials for basic authentication
+        - You will get all the fields of user data except password
 
-To build this project locally, follow the steps:
+    3. Updating user fields using `PUT` request to `localhost:8080/v1/user/self`:
+        - This call requires basic auth
+        - Sample request body:
+            ```json
+            {
+                "first_name": "Jane",
+                "last_name": "Doe",
+                "password": "newPass00@",
+                "username": "jane.doe@example.com"
+            }
+            ```
+        > - **Note**: Include only the following allowed fields in the request body, any other fields will be rejected and update will fail!
 
-1. Clone this ideally using ssh in your local device
-2. Navigate to the directory from your terminal 
-3. Run the following command to install all relevant dependencies
-4. Create .env file and add credentials
+         *(Allowed fields)*
+         - `first_name`
+         - `last_name`
+         - `password`
+
+PS: This project has been setup with AWS for storage, DB and CI/CD
+
+AWS CLI Command for Importing SSL Certificate
 ```
-$npm install
+$ aws acm import-certificate --certificate fileb://Certificate.pem \
+      --certificate-chain fileb://CertificateChain.pem \
+      --private-key fileb://PrivateKey.pem 	
 ```
-5. Set up database
-A database table will need to be created at MySql and its credentials to be added in the env file
+---
+## Thank you!
+*Sanket Pimple (pimple.s@northeastern.edu)*
 
-6. Finally to run the application, enter the following command
-```   
-$npm start   
-```
-7. You can use Postman or other relevant applications to test the API Endpoints
+*MS Information Systems (2019-2020),*
+
+*Northeastern University, Boston*
