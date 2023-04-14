@@ -67,9 +67,4 @@ $ aws acm import-certificate --certificate fileb://Certificate.pem \
       --private-key fileb://PrivateKey.pem 	
 ```
 ---
-## Thank you!
-*Sanket Pimple (pimple.s@northeastern.edu)*
 
-*MS Information Systems (2019-2020),*
-
-*Northeastern University, Boston*
