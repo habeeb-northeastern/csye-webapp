@@ -62,7 +62,7 @@ source "amazon-ebs" "my_ami" {
     owners      = ["amazon"]
     most_recent = true
   }
-    ami_users= ["${var.aws_account_id}"]
+  ami_users= ["${var.aws_account_id}"]
    tags= {
         "Name": "Assignment-ami"
       }
