@@ -1,4 +1,4 @@
-name: AWS AMI using Packer Config
+name: Packer Build
 
 on:
   pull_request:
