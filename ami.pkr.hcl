@@ -4,16 +4,13 @@ variable "ssh_username" {
 }
 variable "aws_account_id" {
   type    = string
-  default = "385627822687"
 }
 
 variable "aws_access_key" {
   type = string
-  default = "AKIASEE4BOWZQWZFG24R"
 }
 variable "aws_secret_key" {
   type = string
-  default = "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"
 }
 variable "aws_region" {
   type= string
